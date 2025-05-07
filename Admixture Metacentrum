@@ -5,7 +5,7 @@
 #change the plink outputs from populations to vcf format, using plink:
 
 module add plink-1.90
-plink --file /storage/brno2/home/alena_bartonova/camilla_gstacks_filtr/populations.plink --make-bed --out /storage/brno2/home/alena_bartonova/camilla_gstacks_filtr/camilla_vcf --allow-extra-chr
+plink --file populations.plink --make-bed --out camilla_vcf --allow-extra-chr
 
 #this will produce several vcf files: .bed, .fam, .bim
 # ADMIXTURE does not accept chromosome names that are not human chromosomes. We will thus exchange the first column by 0
