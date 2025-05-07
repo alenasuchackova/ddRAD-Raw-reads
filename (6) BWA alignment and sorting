@@ -1,0 +1,36 @@
+# This while loop, copied to the command line, produces a set of scripts to align each of the samples to a reference and sort them as an independent job.
+while IFS= read -r i; do
+
+cat > "$i.bwamem2.sh" <<EOF
+
+#!/bin/bash
+#PBS -N $i.bwamem2
+#PBS -l select=1:ncpus=1:mem=20gb:scratch_local=100gb
+#PBS -l walltime=01:00:00
+#PBS -o $i.stdout
+#PBS -e $i.stderr
+
+trap 'clean_scratch' TERM EXIT
+
+cd "\$SCRATCHDIR" || exit 1
+
+module load bwa-mem2
+module load samtools
+
+ref_genome=/storage/brno12-cerit/home/alena_bartonova/RAD_Paph_Lim/Lim_camilla_genome/GCA_905147385.1_ilLimCami1.1_genomic.fna
+output_dir=/storage/brno12-cerit/home/alena_bartonova/RAD_Paph_Lim/camilla_mapped/
+read1=/storage/brno12-cerit/home/alena_bartonova/RAD_Paph_Lim/demultiplex_limenitis/camilla/${i}.1.fq.gz
+read2=/storage/brno12-cerit/home/alena_bartonova/RAD_Paph_Lim/demultiplex_limenitis/camilla/${i}.2.fq.gz
+
+bwa-mem2 mem -t 1 "\$ref_genome" "\$read1" "\$read2" | samtools view -b - > "${i}.bam"
+
+samtools sort -@ 1 -o "${i}_sorted.bam" "${i}.bam"
+samtools index "${i}_sorted.bam"
+
+
+mv "${i}_sorted.bam" "\$output_dir/${i}_sorted.bam"
+mv "${i}_sorted.bam.bai" "\$output_dir/${i}_sorted.bam.bai"
+
+EOF
+
+done < samplelist.txt
