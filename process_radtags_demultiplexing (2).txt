@@ -1,0 +1,19 @@
+#PBS -N process_radtags_loop
+#PBS -l select=1:ncpus=4:mem=25gb:scratch_local=25gb
+#PBS -l walltime=11:00:00
+
+module add stacks
+
+
+POOL_NUMBERS=("011" "179" "220" "256" "347" "455" "509" "526" "604" "625")
+
+
+for POOL_NUMBER in "${POOL_NUMBERS[@]}"
+do
+    process_radtags -i gzfastq \
+        -1 "/storage/brno12-cerit/home/alena_bartonova/RadSeqData/trimmomatic_4bp_cut/SP${POOL_NUMBER}_1_paired_4bpcut.fq.gz" \
+        -2 "/storage/brno12-cerit/home/alena_bartonova/RadSeqData/trimmomatic_adapters_clean/SP${POOL_NUMBER}_2.paired.fq.gz" \
+        -b "/storage/brno12-cerit/home/alena_bartonova/RAD_Paph_Lim/barcodes_paphia/barcodes_SP${POOL_NUMBER}.txt" \
+        -o "/storage/brno12-cerit/home/alena_bartonova/RadSeqData/demultiplex/" \
+        --renz-1 ecoRI --renz-2 mseI --threads 4 -c -q -r
+done
