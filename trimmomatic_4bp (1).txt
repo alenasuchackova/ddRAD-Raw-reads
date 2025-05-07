@@ -1,0 +1,15 @@
+#PBS -N trimmomatic_4bp_loop
+#PBS -l select=1:ncpus=2:mem=30gb:scratch_local=30gb
+#PBS -l walltime=08:00:00
+
+
+module add trimmomatic
+
+output_dir="/storage/brno12-cerit/home/alena_bartonova/RAD_Paph_Lim/trimmomatic_4bpcut"
+
+for pool in /storage/brno12-cerit/home/alena_bartonova/RAD_Paph_Lim/Trimmomatic_adaptercut/*_1.paired.fq.gz; do
+    echo $pool
+    pool_name=$(basename "$pool" _1.paired.fq.gz)
+    output_file="${output_dir}/${pool_name}_1.paired_4bpcut.fq.gz"
+    trimmomatic SE -threads 2 "$pool" "$output_file" HEADCROP:4
+done
