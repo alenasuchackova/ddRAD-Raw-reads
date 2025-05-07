@@ -1,0 +1,22 @@
+#gstacks needs a popmap: two-column textfile, first column is sample name, second column population name
+
+#PBS -N gstacks_reference_paphia
+#PBS -l select=1:ncpus=4:mem=20gb:scratch_local=100gb
+#PBS -l walltime=3:00:00
+
+trap 'clean_scratch' TERM EXIT
+
+cd "$SCRATCHDIR" || exit 1
+
+cp -r /storage/brno12-cerit/home/alena_bartonova/RAD_Paph_Lim/paphia_mapped ./paphia_mapped
+cp /storage/brno12-cerit/home/alena_bartonova/RAD_Paph_Lim/paphia_gstacks/popmap_paphia.txt .
+
+
+module add stacks
+
+gstacks -I paphia_mapped \
+-M popmap_paphia.txt \
+-O gstacks_output \
+-t 4 \
+
+cp -r gstacks_output /storage/brno12-cerit/home/alena_bartonova/RAD_Paph_Lim/paphia_gstacks || { echo "Copy failed!"; exit 1; }
