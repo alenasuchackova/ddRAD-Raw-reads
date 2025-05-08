@@ -32,3 +32,9 @@ populations -P  /storage/brno12-cerit/home/alena_bartonova/RAD_Paph_Lim/paphia_g
 
 ##outputs can be used for downstream analyses
 ## for removing individuals, we need to run gstacks again with a new popmap
+
+###checking individual missingness
+plink --file plink_geno20_maf05 --missing --out plink_geno20_maf05 --recode --allow-extra-chr
+cat plink_geno20_maf05.imiss | sort -k 6
+### the last column is individual missingness of snips, i.e., 0.7 means 70% is missing
+### use this information to sort out individuals
