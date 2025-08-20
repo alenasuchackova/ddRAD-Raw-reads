@@ -1,4 +1,4 @@
-# This while loop, copied to the command line, produces a set of scripts to align each of the samples to a reference and sort them as an independent job.
+# This while loop, copied to the command line, produces a set of scripts to align each of the samples to a reference and sort them as an independent job. We need a list of bases of sample names (samplelist.txt).
 while IFS= read -r i; do
 
 cat > "$i.bwamem2.sh" <<EOF
