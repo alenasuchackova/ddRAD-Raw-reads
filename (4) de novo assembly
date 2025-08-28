@@ -1,4 +1,4 @@
-#de novo assembly using stacks
+#de novo assembly using stacks - instead of steps 4-6 when a reference genome is not available
 # we need demultiplexed samples (fastq) and a population map
 
 #PBS -N de_novo_iris
