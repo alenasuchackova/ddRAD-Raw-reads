@@ -17,7 +17,7 @@ populations -P  /storage/brno12-cerit/home/alena_bartonova/RAD_Paph_Lim/paphia_g
 module add plink-1.90
 plink --file populations.plink --geno 0.20 --maf 0.05 --out plink_geno20_maf05 --recode --allow-extra-chr 
 
-cut -f 2 plink_geno50_maf05.map | sed 's/_/\t/' > SNP_whitelist.txt
+cut -f 2 plink_geno20_maf05.map | sed 's/_/\t/' > SNP_whitelist.txt
 
 ##Third, rerun populations using the whitelist
 #PBS -N populations
