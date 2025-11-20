@@ -41,5 +41,8 @@ for R1 in ${PREFIX}*_1.fq.gz; do
         MINLEN:80
 done
 
+
 cp *.paired.fq.gz "$OUTDIR"/
 cp *.unpaired.fq.gz "$OUTDIR"/
+
+# with 4 threads 100 gb memory, 10 pools took cca 2 h 30 min, 65% cpu usage - better use less next time
