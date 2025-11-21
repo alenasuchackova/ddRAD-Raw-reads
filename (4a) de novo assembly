@@ -22,4 +22,7 @@ denovo_map.pl -T 10 --samples apatura_denovo \
 --paired \
 -X "populations: --structure --plink --vcf" -X "ustacks: -M 3 --force-diff-len"
 
-cp -r denovo_output /storage/brno12-cerit/home/alena_bartonova/RAD2_Paph_Apat/apatura1_denovo || { echo "Copy failed!";>
+cp -r denovo_output /storage/brno12-cerit/home/alena_bartonova/RAD2_Paph_Apat/apatura1_denovo
+
+
+# 95 samples took ~10 hrs, memory used well, but only 20% cpu
