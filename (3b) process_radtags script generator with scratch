@@ -2,7 +2,7 @@
 #changing library, adjust the PREFIX and path to barcodes and OUTDIR
 #after generating of scripts use a for loop to qsub them:
 #for script in pool_scripts/*.sh; do qsub "$script"; done
-
+# one pool took 30-60 mins, 3 cpu used well, but only about 25% of memory (50gb)
 
 #!/bin/bash
 
