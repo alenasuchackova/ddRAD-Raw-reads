@@ -1,0 +1,102 @@
+# PCA when using vcftools or plink for SNP filtering without reruning stacks populations
+# see (7b) for converting output from vcftools to plink
+
+plink --vcf fixed.vcf --pca 10 --double-id --allow-extra-chr
+
+# download outputs to your local machine and use R script for visualization:
+
+###################################################################
+#### PCA visualizer from PCA produced by plink ####################
+###################################################################
+### we need .eigenvec output from plink pca, and popmap ###########
+
+library(ggplot2)
+library(plotly)
+library(dplyr)
+library(stringr)
+library(RColorBrewer)
+
+##################################################################
+pca <- read.table("plink.eigenvec", header = FALSE)
+colnames(pca)[1:5] <- c("FID", "IID", "PC1", "PC2", "PC3")
+
+popmap <- read.table("popmap.txt", header = FALSE, stringsAsFactors = FALSE)
+colnames(popmap) <- c("IID", "Population")
+
+# to merge PCA and population info
+pca <- merge(pca, popmap, by = "IID")
+
+#if we want to automatically generate colours for populations
+pop_names <- unique(pca$Population)
+n_pop <- length(pop_names)
+
+if(n_pop <= 12){
+  pop_colors <- setNames(brewer.pal(n_pop, "Set3"), pop_names)
+} else {
+  pop_colors <- setNames(scales::hue_pal()(n_pop), pop_names)
+}
+
+##scales::hue_pal()(20)  # 20 distinct colors - Set3 has only 12 colours
+
+# #if we want to set different colours manually
+# pop_colors <- c(
+#   Macedonia      = "#d73027",
+#   Slovenia       = "#fc8d59",
+#   Hungary        = "#fee090",
+#   Romania        = "#91bfdb",
+#   RomaniaE       = "#74add1",
+#   Ukraine        = "#4575b4",
+#   UkraineW       = "#313695",
+#   SerbiaBosnia   = "#542788",
+#   Urals          = "#1b9e77",
+#   FarEast        = "#66c2a5",
+#   Mongolia       = "#a6d854",
+#   Japan          = "#e7298a"
+# )
+
+
+# get explained variability
+eigvals <- scan("plink.eigenval")
+var_explained <- round(eigvals / sum(eigvals) * 100)
+var_explained
+
+
+ggplot(pca, aes(x = PC1, y = PC2, fill = Population)) +
+  geom_point(shape = 21, color = "black", size = 3, alpha = 0.8, stroke = 0.5) +
+  scale_fill_manual(values = pop_colors) +
+  theme_minimal(base_size = 14) +
+  labs(
+    title = "PCA (PLINK)",
+    x = paste0("PC1 (", var_explained[1], "%)"),
+    y = paste0("PC2 (", var_explained[2], "%)"),
+    fill = "Population"
+  )
+
+
+##############################################################
+#### interactive 3D plot of 3 axes ###########################
+##############################################################
+
+plot_ly(
+  pca,
+  x = ~PC1,
+  y = ~PC2,
+  z = ~PC3,
+  color = ~Population,
+  colors = pop_colors,
+  type = "scatter3d",
+  mode = "markers",
+  marker = list(size = 4)
+) %>%
+  layout(
+    scene = list(
+      xaxis = list(title = "PC1"),
+      yaxis = list(title = "PC2"),
+      zaxis = list(title = "PC3")
+    ),
+    legend = list(title = list(text = "Population"))
+  )
+
+
+
+
