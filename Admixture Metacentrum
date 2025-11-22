@@ -26,4 +26,3 @@ awk '/CV/ {print $3,$4}' *out | cut -c 4,7-20 > $rivularis.cv.error
 awk '{split($1,name,"."); print $1,name[2]}' $FILE.nosex > $FILE.list
 
 #download to local computer (exit from Metacentrum first)
-scp alena_bartonova@zuphux.metacentrum.cz:/storage/brno12-cerit/home/alena_bartonova/RadSeqData/de_novo_riv_1/Admixture/rivularis_vcf* .
