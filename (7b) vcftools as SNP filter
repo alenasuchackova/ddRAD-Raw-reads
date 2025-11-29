@@ -16,7 +16,7 @@ vcftools --vcf [path to input .vcf] \
 # --minDP 5 - keeps SNPs with a sequencing depth larger than 5X
 
 # remove - removes individuals from a list (generated after checking for --missing-indv) (!no need to re-run gstacks)
-## vcftools --vcf [] --output [] --missing-indv
+## vcftools --vcf [] --out [] --missing-indv
 
 ##To change to plink: we need to generate .bed files
 # denovo generated .vcf files have problems with chromosome names - they are only numbers, exceeding human chromosome numbers
