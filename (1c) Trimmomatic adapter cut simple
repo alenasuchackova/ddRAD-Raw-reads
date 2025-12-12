@@ -14,5 +14,3 @@ module add trimmomatic
 
         ILLUMINACLIP:/storage/brno12-cerit/home/alena_bartonova/RAD_Paph_Lim/Trimmomatic_adaptercut/adapters.fas:2:30:10 \
         MINLEN:80
-
-done
