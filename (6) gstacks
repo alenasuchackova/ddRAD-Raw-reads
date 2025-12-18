@@ -20,3 +20,16 @@ gstacks -I paphia_mapped \
 -t 4 \
 
 cp -r gstacks_output /storage/brno12-cerit/home/alena_bartonova/RAD_Paph_Lim/paphia_gstacks || { echo "Copy failed!"; exit 1; }
+
+### Batch rename of _sorted
+#first, echo if it does the job:
+for file in *"_sorted"*; do
+  new_name="${file//_sorted/}"
+  echo "Renaming: $file -> $new_name"
+done
+
+# if so, rename:
+for file in *"_sorted"*; do
+  new_name="${file//_sorted/}"
+  mv "$file" "$new_name"
+done
