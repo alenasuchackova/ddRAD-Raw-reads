@@ -1,4 +1,5 @@
-` #PBS -N trimmomatic_adapterclip_loop
+```
+#PBS -N trimmomatic_adapterclip_loop
 #PBS -l select=1:ncpus=3:mem=50gb:scratch_local=50gb
 #PBS -l walltime=10:00:00
 
@@ -21,4 +22,5 @@ for R1 in /storage/brno12-cerit/home/alena_bartonova/RAD_Paph_Lim/Trimmomatic_ad
         ILLUMINACLIP:/storage/brno12-cerit/home/alena_bartonova/RAD_Paph_Lim/Trimmomatic_adaptercut/adapters.fas:2:30:10 \
         MINLEN:80
 
-done`
+done
+```
