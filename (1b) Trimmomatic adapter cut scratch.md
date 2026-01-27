@@ -1,5 +1,7 @@
-# uses scratchdir on Metacentrum and can run only part of the data by changing PREFIX
+# Trimmomatic adaptercut scratch
+uses scratchdir on Metacentrum and can run only part of the data by changing PREFIX
 
+```
 #PBS -N trimmomatic_adapterclip_loop
 #PBS -l select=1:ncpus=5:mem=100gb:scratch_local=100gb
 #PBS -l walltime=10:00:00
@@ -45,4 +47,5 @@ done
 cp *.paired.fq.gz "$OUTDIR"/
 cp *.unpaired.fq.gz "$OUTDIR"/
 
-# with 4 threads 100 gb memory, 10 pools took cca 2 h 30 min, 65% cpu usage - better use less next time
+```
+note: with 4 threads 100 gb memory, 10 pools took cca 2 h 30 min, 65% cpu usage - better use less next time
