@@ -1,9 +1,15 @@
-#this script is generating a set of executable scripts, which can be submitted to Metacentrum, each demultiplexing a different pool
-#changing library, adjust the PREFIX and path to barcodes and OUTDIR
-#after generating of scripts use a for loop to qsub them:
-#for script in pool_scripts/*.sh; do qsub "$script"; done
-# one pool took 30-60 mins, 3 cpu used well, but only about 25% of memory (50gb)
+# Process_radtags script generator
+This script is generating a set of executable scripts, which can be submitted to Metacentrum, each demultiplexing a different pool  
+- changing library, adjust the PREFIX and path to barcodes and OUTDIR 
+- generates a directory called pool_scripts
+  
+after generating scripts use a for loop to qsub them:  
 
+` for script in pool_scripts/*.sh; do qsub "$script"; done `  
+
+Note: one pool took 30-60 mins, 3 cpu used well, but only about 25% of memory (50gb)
+
+```
 #!/bin/bash
 
 # Output directory for generated scripts
@@ -59,3 +65,4 @@ EOF
     echo "Created $SCRIPT"
 done
 
+```
