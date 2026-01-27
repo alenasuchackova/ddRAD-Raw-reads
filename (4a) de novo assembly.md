@@ -1,12 +1,14 @@
-#de novo assembly using stacks - instead of steps 4-6 when a reference genome is not available
-# we need demultiplexed samples (fastq) and a population map
+# de novo assembly using stacks  
 
+- use instead of steps 4-6 when a reference genome is not available  
+-  we need demultiplexed samples (fastq) and a population map
+
+```
 #PBS -N de_novo_iris
 #PBS -l select=1:ncpus=10:mem=100gb:scratch_local=150gb
 #PBS -l walltime=20:00:00
 
 trap 'clean_scratch' TERM EXIT
-
 cd "$SCRATCHDIR" || exit 1
 
 cp -r /storage/brno12-cerit/home/alena_bartonova/RAD2_Paph_Apat/demultiplex_apatura1_corr ./apatura_denovo
@@ -23,6 +25,5 @@ denovo_map.pl -T 10 --samples apatura_denovo \
 -X "populations: --structure --plink --vcf" -X "ustacks: -M 3 --force-diff-len"
 
 cp -r denovo_output /storage/brno12-cerit/home/alena_bartonova/RAD2_Paph_Apat/apatura1_denovo
-
-
-# 95 samples took ~10 hrs, memory used well, but only 20% cpu
+```
+Note: 95 samples took ~10 hrs, memory used well, but only 20% cpu
