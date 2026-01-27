@@ -1,3 +1,6 @@
+# Trimmomatic adapter cut PE for one pool
+
+```
 #PBS -N trimmomatic_adapterclip_reducta
 #PBS -l select=1:ncpus=1:mem=50gb:scratch_local=50gb
 #PBS -l walltime=01:00:00
@@ -14,3 +17,4 @@ module add trimmomatic
 
         ILLUMINACLIP:/storage/brno12-cerit/home/alena_bartonova/RAD_Paph_Lim/Trimmomatic_adaptercut/adapters.fas:2:30:10 \
         MINLEN:80
+```
