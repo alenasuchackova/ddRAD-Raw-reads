@@ -1,4 +1,4 @@
-# Trimmomatic adaptercut scratch
+# Trimmomatic adapter cut with scratchdir
 uses scratchdir on Metacentrum and can run only part of the data by changing PREFIX
 
 ```
