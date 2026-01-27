@@ -1,3 +1,6 @@
+# process_radtags for demultiplexing in loop
+
+```
 #PBS -N process_radtags_loop
 #PBS -l select=1:ncpus=4:mem=25gb:scratch_local=25gb
 #PBS -l walltime=11:00:00
@@ -17,3 +20,5 @@ do
         -o "/storage/brno12-cerit/home/alena_bartonova/RadSeqData/demultiplex/" \
         --renz-1 ecoRI --renz-2 mseI --threads 4 -c -q -r
 done
+
+```
