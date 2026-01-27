@@ -1,3 +1,6 @@
+# Trimmomatic adapter cut
+Code for Metacentrum to cut adapters from ddRAD data using Trimmomatic
+
 ```
 #PBS -N trimmomatic_adapterclip_loop
 #PBS -l select=1:ncpus=3:mem=50gb:scratch_local=50gb
@@ -24,3 +27,4 @@ for R1 in /storage/brno12-cerit/home/alena_bartonova/RAD_Paph_Lim/Trimmomatic_ad
 
 done
 ```
+
