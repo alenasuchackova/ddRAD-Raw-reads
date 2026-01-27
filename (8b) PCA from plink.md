@@ -1,10 +1,15 @@
-# PCA when using vcftools or plink for SNP filtering without reruning stacks populations
-# see (7b) for converting output from vcftools to plink
+# PCA from plink
 
+PCA when using vcftools or plink for SNP filtering without re-running stacks populations
+See (7b) for converting output from vcftools to plink
+
+```
 plink --vcf fixed.vcf --pca 10 --double-id --allow-extra-chr
+```
 
-# download outputs to your local machine and use R script for visualization:
+Download outputs to your local machine and use R script for visualization:
 
+```
 ###################################################################
 #### PCA visualizer from PCA produced by plink ####################
 ###################################################################
@@ -103,6 +108,7 @@ plot_ly(
     legend = list(title = list(text = "Population"))
   )
 
+```
 
 
 
