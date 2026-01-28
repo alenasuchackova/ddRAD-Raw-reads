@@ -1,3 +1,6 @@
+# Trimmomatic 4bp cut from read1 using scratchdir
+
+```
 #PBS -N trimmomatic_4bp_loop
 #PBS -l select=1:ncpus=3:mem=70gb:scratch_local=70gb
 #PBS -l walltime=05:00:00
@@ -26,6 +29,6 @@ for pool in ${PREFIX}*_1.paired.fq.gz; do
 done
 
 cp *_1.paired_4bpcut.fq.gz "$OUTDIR"/
+```
 
-
-# 3 cpu and 70gb mem: memory used around 50 gb, 39% of cpu time, took 2 h 30 min
+Note: 3 cpu and 70gb mem: memory used around 50 gb, 39% of cpu time, took 2 h 30 min
