@@ -1,5 +1,8 @@
-##First, run populations
+# Populations and plink
 
+for SNP calling and filtering  
+first, run populations:  
+```
 #PBS -N populations
 #PBS -l select=1:ncpus=1:mem=20gb:scratch_local=30gb
 #PBS -l walltime=00:30:00
@@ -8,18 +11,22 @@ module add stacks
 populations -P  /storage/brno12-cerit/home/alena_bartonova/RAD_Paph_Lim/paphia_gstacks/gstacks_output \
 -O /storage/brno12-cerit/home/alena_bartonova/RAD_Paph_Lim/paphia_gstacks/populations_output \
 -t 2 -M /storage/brno12-cerit/home/alena_bartonova/RAD_Paph_Lim/paphia_gstacks/popmap_paphia.txt --structure --plink --vcf
+```
 
-##Second, run plink for filtering SNPs and create whitelist of SNPs to keep
-##plink: fast, no need to qsub
-#--geno = missing data rate
-#--maf = minimum allele frequency 
-
+Second, run plink for filtering SNPs and create whitelist of SNPs to keep  
+- plink: fast, no need to qsub  
+--geno = missing data rate  
+--maf = minimum allele frequency
+  
+```
 module add plink-1.90
 plink --file populations.plink --geno 0.20 --maf 0.05 --out plink_geno20_maf05 --recode --allow-extra-chr 
 
 cut -f 2 plink_geno20_maf05.map | sed 's/_/\t/' > SNP_whitelist.txt
+```
 
-##Third, rerun populations using the whitelist
+Third, rerun populations using the whitelist  
+```
 #PBS -N populations
 #PBS -l select=1:ncpus=1:mem=20gb:scratch_local=30gb
 #PBS -l walltime=00:30:00
@@ -29,12 +36,16 @@ populations -P  /storage/brno12-cerit/home/alena_bartonova/RAD_Paph_Lim/paphia_g
 -O /storage/brno12-cerit/home/alena_bartonova/RAD_Paph_Lim/paphia_gstacks/populations_output_geno20_maf05 \
 -W /storage/brno12-cerit/home/alena_bartonova/RAD_Paph_Lim/paphia_gstacks/populations_output/SNP_whitelist.txt \
 -t 2 -M /storage/brno12-cerit/home/alena_bartonova/RAD_Paph_Lim/paphia_gstacks/popmap_paphia.txt --structure --plink --vcf
+```
 
-##outputs can be used for downstream analyses
-## for removing individuals, we need to run gstacks again with a new popmap
-
-###checking individual missingness
+outputs can be used for downstream analyses  
+for removing individuals, we run gstacks again with a new popmap (or use remove in vcftools - see 7b)  
+  
+checking individual missingness
+```
 plink --file plink_geno20_maf05 --missing --out plink_geno20_maf05 --recode --allow-extra-chr
+
 cat plink_geno20_maf05.imiss | sort -k 6
-### the last column is individual missingness of snips, i.e., 0.7 means 70% is missing
-### use this information to sort out individuals
+```
+the last column is individual missingness of snips, i.e., 0.7 means 70% is missing  
+use this information to sort out individuals with too high individual missingness
