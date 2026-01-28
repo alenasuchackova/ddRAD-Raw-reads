@@ -1,3 +1,6 @@
+# Trimmomatic 4bp cut from read1
+
+```
 #PBS -N trimmomatic_4bp_loop
 #PBS -l select=1:ncpus=2:mem=30gb:scratch_local=30gb
 #PBS -l walltime=08:00:00
@@ -13,3 +16,4 @@ for pool in /storage/brno12-cerit/home/alena_bartonova/RAD_Paph_Lim/Trimmomatic_
     output_file="${output_dir}/${pool_name}_1.paired_4bpcut.fq.gz"
     trimmomatic SE -threads 2 "$pool" "$output_file" HEADCROP:4
 done
+```
