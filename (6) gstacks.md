@@ -1,5 +1,9 @@
-#gstacks needs a popmap: two-column textfile, first column is sample name, second column population name
+# gstacks
 
+gstacks is a step after alignment  
+gstacks needs a popmap: two-column textfile, first column is sample name, second column population name  
+
+```
 #PBS -N gstacks_reference_paphia
 #PBS -l select=1:ncpus=4:mem=20gb:scratch_local=100gb
 #PBS -l walltime=3:00:00
@@ -20,16 +24,20 @@ gstacks -I paphia_mapped \
 -t 4 \
 
 cp -r gstacks_output /storage/brno12-cerit/home/alena_bartonova/RAD_Paph_Lim/paphia_gstacks || { echo "Copy failed!"; exit 1; }
+```
 
-### Batch rename of _sorted
-#first, echo if it does the job:
+## Batch rename of _sorted  
+first, echo if it does the job:  
+```
 for file in *"_sorted"*; do
   new_name="${file//_sorted/}"
   echo "Renaming: $file -> $new_name"
 done
-
-# if so, rename:
+```
+if so, rename:  
+```
 for file in *"_sorted"*; do
   new_name="${file//_sorted/}"
   mv "$file" "$new_name"
 done
+```
