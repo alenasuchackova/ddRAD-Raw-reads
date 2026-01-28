@@ -1,3 +1,12 @@
+# BWA genome indexing  
+
+- Download reference genome from NCBI  
+```
+wget <link to .fna.gz file on ncbi>
+gunzip <genome file name> 
+```
+
+```
 #PBS -N genome_indexing
 #PBS -l select=1:ncpus=1:mem=32gb:scratch_local=32gb
 #PBS -l walltime=01:00:00
@@ -5,3 +14,4 @@
 module load bwa-mem2
 
 bwa-mem2 index /storage/brno12-cerit/home/alena_bartonova/RAD_Paph_Lim/populi_genome/GCA_964341245.1_ilLimPopu1.hap1.1_genomic.fna
+```
