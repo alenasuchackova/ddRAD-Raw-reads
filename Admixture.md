@@ -1,0 +1,37 @@
+# ADMIXTURE
+
+how to run ADMIXTURE with little help of Joana Meier: https://speciationgenomics.github.io/ADMIXTURE/  
+it is quick, no need to qsub  
+  
+- change the plink outputs from populations to vcf format, using plink:
+```
+module add plink-1.90
+plink --file populations.plink --make-bed --out filename --allow-extra-chr
+```
+
+this will produce several vcf files: .bed, .fam, .bim
+
+ADMIXTURE does not accept chromosome names that are not human chromosomes. We will thus exchange the first column by 0
+```
+FILE=filename
+awk '{$1="0";print $0}' $FILE.bim > $FILE.bim.tmp
+mv $FILE.bim.tmp $FILE.bim
+```
+- run Admixture in a loop for several K, direct output into log files:
+```
+module add admixture
+for i in {3..5}; do admixture --cv filename.bed $i > log${i}.out; done
+```
+
+- To identify the best value of k clusters which is the value with lowest cross-validation error, we need to collect the cv errors:  
+
+` awk '/CV/ {print $3,$4}' *out | cut -c 4,7-20 > filename.cv.error `  
+
+- extracting of a column from the .nosex file (this will give us the first column, changing to $2 will give us second) - but for plotting, we can use directly the popmap file  
+
+` awk '{split($1,name,"."); print $1,name[2]}' $FILE.nosex > $FILE.list `
+
+- download to local computer (exit from Metacentrum first)
+
+  
+
