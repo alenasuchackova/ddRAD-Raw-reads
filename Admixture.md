@@ -31,7 +31,7 @@ for i in {3..5}; do admixture --cv filename.bed $i > log${i}.out; done
 
 ` awk '{split($1,name,"."); print $1,name[2]}' $FILE.nosex > $FILE.list `
 
-- download to local computer (exit from Metacentrum first)
+- download outputs to local computer and use plot_admixture.R script in R
 
   
 
