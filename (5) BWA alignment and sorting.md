@@ -1,4 +1,10 @@
-# This while loop, copied to the command line, produces a set of scripts to align each of the samples to a reference and sort them as an independent job. We need a list of bases of sample names (samplelist.txt).
+# BWA alignment and sorting with samtools
+
+This is a script to align reads to a reference genome (after they are demultiplexed by process_radtags)  
+This while loop, copied to the command line, produces a set of scripts to align each of the samples to a reference and sort them as an independent job  
+We need a list of bases of sample names (samplelist.txt)  
+
+```
 while IFS= read -r i; do
 
 cat > "$i.bwamem2.sh" <<EOF
@@ -34,3 +40,4 @@ mv "${i}_sorted.bam.bai" "\$output_dir/${i}_sorted.bam.bai"
 EOF
 
 done < samplelist.txt
+```
