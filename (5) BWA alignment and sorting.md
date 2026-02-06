@@ -41,3 +41,8 @@ EOF
 
 done < samplelist.txt
 ```
+
+qsub jobs with 
+```
+for script in *.sh; do qsub "$script"; done
+```
