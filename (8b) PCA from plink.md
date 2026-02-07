@@ -4,10 +4,11 @@ PCA when using vcftools or plink for SNP filtering without re-running stacks pop
 See (7b) for converting output from vcftools to plink
 
 ```
+module load plink-1.90
 plink --vcf fixed.vcf --pca 10 --double-id --allow-extra-chr
 ```
 
-Download outputs to your local machine and use R script for visualization:
+Download outputs (.eigenval and .eigenvec) to your local machine and use R script for visualization:
 
 ```
 ###################################################################
