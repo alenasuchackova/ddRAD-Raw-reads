@@ -22,6 +22,10 @@ remove - removes individuals from a list (generated after checking for --missing
 
 ` vcftools --vcf [] --out [] --missing-indv `
 
+To get remove_list.txt:  
+` cat missing.imiss | sort -k 5 | tail -3 | head -2 | cut -f1 > remove_list.txt `  
+change tail and head according to the number of samples to remove  
+
 To change to plink: we need to generate .bed files  
 denovo generated .vcf files have problems with chromosome names - they are only numbers, exceeding human chromosome numbers  
 we need to change them to a text, so that plink can --allow-extra-chr  
