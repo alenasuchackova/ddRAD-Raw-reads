@@ -20,7 +20,7 @@ mv $FILE.bim.tmp $FILE.bim
 - run Admixture in a loop for several K, direct output into log files:
 ```
 module add admixture
-for i in {3..5}; do admixture --cv filename.bed $i > log${i}.out; done
+for i in {2..5}; do admixture --cv filename.bed $i > log${i}.out; done
 ```
 
 - To identify the best value of k clusters which is the value with lowest cross-validation error, we need to collect the cv errors:  
